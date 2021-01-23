@@ -5,7 +5,7 @@ test("Creates an Employee object", () => {
 
     expect(employee.employeeName).toEqual(expect.any(String));
     expect(employee.employeeID).toEqual(expect.any(String));
-    expect(employee.employeeEmail).toEqual(expect.any(String));
+    expect(employee.employeeEmail).toEqual(expect.stringContaining('@'));
 });
 
 test("Gets employee's name", () => {
@@ -30,4 +30,5 @@ test("Gets employee's role", () => {
     const employee = new Employee('Dave', '234', 'noemail@noneatall.com');
 
     expect(employee.getRole()).toEqual(expect.stringContaining('Employee'));
+    console.log(employee);
 });
