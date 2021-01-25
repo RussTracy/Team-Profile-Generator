@@ -9,8 +9,6 @@ Clone the repositry from GitHub and open using Visual Studio Code.
 # Usage 
 [Demo Viedo](https://drive.google.com/file/d/1xA6N26Q5aexqq9W16pUl6gKMe6Degp7E/view?usp=sharing)
 
-![Usage Playback Video](./assets/images/TeamProfileGenerator.gif)
-
 ![alt text](./assets/images/ScreenShot.jpg)
 
 # Credits
