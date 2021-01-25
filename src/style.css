@@ -1,9 +1,9 @@
 :root {
-  --primary: #9dbdc6;
-  --secondary: #daeaef;
+  --primary: #c6c6e6;
+  --secondary: #efefff;
   --tertiary: #ff3d2e;
   --light: #ffffff;
-  --dark: #272f32;
+  --dark: #09093b;
   --border-radius: 0.3rem;
   --spacing-one: calc(1rem * 0.25);
   --spacing-two: calc(1rem * 0.5);
@@ -89,6 +89,9 @@ nav a:hover {
   background-color: var(--dark);
 }
 
+.round-corners{
+  border-radius: var(--border-radius);
+}
 .page-title {
   text-align: center;
   width: 100%;
@@ -197,15 +200,15 @@ nav a:hover {
 }
 
 .w-75 {
-  width: 75%;
+  width: 74%;
 }
 
 .w-50 {
-  width: 50%;
+  width: 49%;
 }
 
 .w-25 {
-  width: 25%;
+  width: 24%;
 }
 
 .min-100-vh {

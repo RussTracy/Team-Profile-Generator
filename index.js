@@ -5,13 +5,12 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const generatePage = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site.js');
-const Employee = require('./lib/Employee');
 
 const teamMembers = [];
-const id = [];
 
 const startApp = () => {
 
+    // Initial questions for adding a Manager
     const addManager = () => {
         return inquirer.prompt([
             {
@@ -71,48 +70,12 @@ const startApp = () => {
             .then(answers => {
                 const manager = new Manager(answers.managerName, answers.id, answers.managerEmail, answers.officeNumber);
                 teamMembers.push(manager);
-                // id.push(answers.id);
 
                 createNewTeamMember();
             })
     }
 
-    const createNewTeamMember = () => {
-        return inquirer.prompt([
-            {
-                type: 'list',
-                name: 'teamMenu',
-                message: 'Which type of team member would you like to add?',
-                choices: ['Engineer', 'Intern', 'Finish building my team'],
-            },
-        ])
-            .then(answers => {
-                if (answers.teamMenu === 'Engineer') {
-                    addEngineer();
-                }
-                else if (answers.teamMenu === 'Intern') {
-                    addIntern();
-                }
-                else {
-                    const pageHTML = generatePage(mockData);
-                    return pageHTML;
-                }
-            })
-            .then(pageHTML => {
-                return writeFile(pageHTML);
-            })
-            .then(writeFileResponse => {
-                console.log(writeFileResponse);
-                return copyFile();
-            })
-            .then(copyFileResponse => {
-                console.log(copyFileResponse);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
-
+    // Add Engineer Questions
     const addEngineer = () => {
         return inquirer.prompt([
             {
@@ -172,12 +135,12 @@ const startApp = () => {
             .then(answers => {
                 const engineer = new Engineer(answers.engineerName, answers.id, answers.engineerEmail, answers.gitHub);
                 teamMembers.push(engineer);
-                // id.push(answers.id);
 
                 createNewTeamMember();
             })
     }
 
+    // And Intern Questions
     const addIntern = () => {
         return inquirer.prompt([
             {
@@ -237,71 +200,40 @@ const startApp = () => {
             .then(answers => {
                 const intern = new Intern(answers.internName, answers.id, answers.internEmail, answers.school);
                 teamMembers.push(intern);
-                // id.push(answers.id);
 
                 createNewTeamMember();
             })
     }
 
-    addManager();
-}
+    // Add an Engineer or Intern or Finish menu options
+    const createNewTeamMember = () => {
+        return inquirer.prompt([
+            {
+                type: 'list',
+                name: 'teamMenu',
+                message: 'Which type of team member would you like to add?',
+                choices: ['Engineer', 'Intern', 'Finish building my team']
+            }
+        ])
+            .then(answers => {
+                if (answers.teamMenu === 'Engineer') {
+                    addEngineer();
+                }
+                else if (answers.teamMenu === 'Intern') {
+                    addIntern();
+                }
+                else {
+                    const pageHTML = generatePage(teamMembers);
+                    writeFile(pageHTML);
+                    console.log('File created!');
+                    copyFile();
+                    console.log('Stylesheet Copied');
+                }
+            })
+    }
 
-const mockData = {
-    Manager: [
-        {
-            employeeName: 'Manager Name',
-            employeeId: '1',
-            employeeEmail: 'manager@manager.com',
-            employeeRole: 'Manager',
-            officeNumber: 'Room #35'
-        }
-    ],
-    Engineer: [
-        {
-            employeeName: 'Engineer First',
-            employeeId: '2',
-            employeeEmail: 'first@engineer.com',
-            employeeRole: 'Engineer',
-            gitHubUsername: 'firstengineergithub'
-        },
-        {
-            employeeName: 'Engineer Second',
-            employeeId: '3',
-            employeeEmail: 'second@engineer.com',
-            employeeRole: 'Engineer',
-            gitHubUsername: 'secondengineergithub'
-        },
-        {
-            employeeName: 'Engineer Third',
-            employeeId: '4',
-            employeeEmail: 'third@engineer.com',
-            employeeRole: 'Engineer',
-            gitHubUsername: 'thirdengineergithub'
-        }
-    ],
-    Intern: [
-        {
-            employeeName: 'Intern First',
-            employeeId: '5',
-            employeeEmail: 'intern@intern.com',
-            employeeRole: 'Intern',
-            internSchool: 'school name'
-        },
-        {
-            employeeName: 'Intern Second',
-            employeeId: '6',
-            employeeEmail: 'intern@intern.com',
-            employeeRole: 'Intern',
-            internSchool: 'school name'
-        },
-        {
-            employeeName: 'Intern Third',
-            employeeId: '7',
-            employeeEmail: 'intern@intern.com',
-            employeeRole: 'Intern',
-            internSchool: 'school name'
-        }
-    ]
-};
+    addManager()
+
+}
 
 startApp();
