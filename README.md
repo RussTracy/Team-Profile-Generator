@@ -1,4 +1,4 @@
-# README Generator
+# Team Profile Generator
     
 This is a Node.js application that will generate a team profile page based on user input for companies with teams of employees.
 
